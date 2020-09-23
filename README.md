@@ -16,7 +16,8 @@ This application will utilize geographical and localized data to display brick a
 
 Project FOOLERY is open to every user but only subscribed user will have access to discounts or coupons provided by businesses that register with Project FOOLERY. The business value for this rule will increase users and user subscription.
 
-Businesses that sign up with the project will be allowed to advertise their products within the application by promoting listings. This will increase the number of businesses that are willing to register because they will have many guests and subscribed users that they can target listings at. 
+Businesses that sign up with the project will be allowed to advertise their products within the application by promoting listings. This will increase the number of businesses that are willing to register because they will have many guests and subscribed users that they can target listings at.
+
 Users of the application will have an option to pay for merchandise within the app and store receipts in their account. The application will use this business rule to collect user data and sell it to businesses that advertise within the application, with the caveat of user opt out.
 
 This project will also define limitations based on local regulations. It protects user’s personal information, financial cost, preliminary project schedule. It defines solution based on requirement and analysis decision.
@@ -37,5 +38,6 @@ Research days will include gathering user feedback about the product, this will 
 
 ## Proposed system functionalities
 
-The main function of the application is to provide users with the cheapest available prices of home and consumer goods based on their current location.  
+The main function of the application is to provide users with the cheapest available prices of home and consumer goods based on their current location.
+
 Users of the system are defined as guest users, subscribed users, businesses and application systems. Potential use cases of the systems are described in the table below.
