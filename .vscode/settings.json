@@ -1,0 +1,18 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "ics370",
+      "database": "glazpmck_ics370",
+      "username": "glazpmck_ics370",
+      "password": "BZgGYMd4BSqTiNb"
+    }
+  ],
+  "compile-hero.disable-compile-files-on-did-save-code": false
+}
