@@ -23,8 +23,23 @@ class Member
             $_SESSION['MemberSince'] = $row['AccountCreated'];
             $_SESSION['Email'] = $row['Email'];
             $_SESSION['DOB'] = $row['DOB'];
-            $_SESSION['Country'] = $row['Origin'];
+            $_SESSION['isRetailer'] = false;
             return true;
+        }else{
+            $query = "SELECT * FROM retailers WHERE Email = '$username' AND Psword = '$passwordHash'";
+            $result = $this->db->query($query);
+            $row=$result->fetch_array(MYSQLI_ASSOC);
+
+            if($result->num_rows){
+                $_SESSION['userID'] = $row['User_ID'];
+                $_SESSION['user'] = $row['FName'];
+                $_SESSION['MemberName'] = $row['FName']." ".$row['LName'];
+                $_SESSION['Company'] = $row['Company'];
+                $_SESSION['MemberSince'] = $row['AccountCreated'];
+                $_SESSION['Email'] = $row['Email'];
+                $_SESSION['isRetailer'] = true;
+                return true;
+            }
         }
         $this->db->close();
     }

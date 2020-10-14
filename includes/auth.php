@@ -10,10 +10,16 @@ if (!(empty($_POST["userName"]) && empty($_POST["pswd"]))) {
     $member = new Member();
 
     $isLoggedIn = $member->processLogin($username, $password);
+    $isRetailer = $_SESSION['isRetailer'];
 
     if ($isLoggedIn) {
         $_SESSION["LoggedIn"] = true;
-        header("Location: ../account.php");
+        console.log($_SESSION['isRetailer']);
+        if ($isRetailer){
+            header("location: ../retailer.php");
+        }else{
+            header("Location: ../account.php");
+        }
     }else{
         $_SESSION["errorMessage"] = "Invalid Credentials";
         header("Location: ../login.php", true, 403);
