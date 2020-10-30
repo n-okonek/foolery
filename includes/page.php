@@ -98,7 +98,7 @@ class Page {
   {
     $query = "SELECT * FROM sitemap WHERE isNavItem = ?";
     $paramType = "i";
-    $paramArray = [1];
+    $paramArray = array(1);
     $stmt = $this->ds->select($query, $paramType, $paramArray);
     $nav_rs= $stmt;
     ?>

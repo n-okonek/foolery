@@ -12,6 +12,19 @@
       "database": "glazpmck_ics370",
       "username": "glazpmck_ics370",
       "password": "BZgGYMd4BSqTiNb"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "ssh://glazpmck@glazedproductions.com",
+      "port": 21098,
+      "driver": "MariaDB",
+      "database": "glazpmck_ics370",
+      "username": "glazpmck_ics370",
+      "password": "BZgGYMd4BSqTiNb",
+      "name": "ics370 Prod"
     }
   ],
   "compile-hero.disable-compile-files-on-did-save-code": false
