@@ -1,4 +1,8 @@
 <?
+namespace Foolery;
+use Foolery\Page;
+require_once "includes/page.php";
+
 session_start();
 
 if (empty($_SESSION['LoggedIn'])){
@@ -7,16 +11,9 @@ if (empty($_SESSION['LoggedIn'])){
 }
 
 else{
-  require("includes/page.php");
+  require_once "includes/page.php";
 
   Class MyAccountPage extends Page{
-
-    private $db;
-
-    function __construct()
-    {
-        $this->db = new mysqli('localhost', 'glazpmck_ics370', 'BZgGYMd4BSqTiNb', 'glazpmck_ics370' );
-    }
 
     public function Display($pageID){
       $this -> DisplayHead(); // includes all meta information including site title and page names

@@ -1,5 +1,8 @@
 <?
-require("includes/page.php");
+namespace Foolery;
+use Foolery\Page;
+
+require_once "includes/page.php";
 
 Class RegistrationPage extends Page{
 

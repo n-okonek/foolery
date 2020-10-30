@@ -1,6 +1,9 @@
 <?
+namespace Foolery;
+use Foolery\Page;
+
 session_start();
-require("includes/page.php");
+require_once "includes/page.php";
 
 class LoginPage extends Page{
   public function Display($pageID){
