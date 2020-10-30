@@ -1,6 +1,8 @@
 <?
+namespace Foolery;
+use Foolery\Page;
 
-require('includes/page.php');
+require_once 'includes/page.php';
 
 class Homepage extends Page{
   public function Display($pageID){

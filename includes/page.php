@@ -1,13 +1,24 @@
 <?
+namespace Foolery;
+use \Foolery\Datasource;
+
 class Page {
   public $content;
   public $title;
 
-  public function __set($name, $value){
+  function __construct()
+  {
+      require_once "backend/DataSource.php";
+      $this->ds = new DataSource();
+  }
+
+  public function __set($name, $value)
+  {
     $this -> $name = $value;
   }
 
-  public function Display($pageID){
+  public function Display($pageID)
+  {
     $this -> DisplayHead(); // includes all meta information including site title and page names
     $this -> DisplayBody();
     $this -> DisplayHeader(); //includes display menu
@@ -16,7 +27,8 @@ class Page {
     $this -> DisplayFooter();
   }
 
-  public function DisplayHead(){
+  public function DisplayHead()
+  {
     ?>
       <!DOCTYPE html>
         <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -32,7 +44,8 @@ class Page {
       echo "</head>";
   }
   
-  public function DisplayMeta(){
+  public function DisplayMeta()
+  {
     ?>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,11 +54,13 @@ class Page {
     <?
   }
 
-  private function DisplayTitle(){
+  private function DisplayTitle()
+  {
     echo "<title>".$this->title."</title>";
   }
 
-  private function DisplayStyles(){
+  private function DisplayStyles()
+  {
     ?>
       <!-- import bootstrap CSS library -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -56,7 +71,8 @@ class Page {
     <?
   }
 
-  private function DisplayScripts(){
+  private function DisplayScripts()
+  {
     ?>
      <!--import popper js library -->
      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -68,7 +84,8 @@ class Page {
     <?
   }
 
-  public function DisplayBody(){
+  public function DisplayBody()
+  {
     ?>
       <body>
         <!--[if lt IE 7]>
@@ -77,11 +94,13 @@ class Page {
     <?
   }
 
-  public function DisplayHeader(){
-    $db = new mysqli('localhost', 'glazpmck_ics370', 'BZgGYMd4BSqTiNb', "glazpmck_ics370");
-    $nav_sql = "SELECT * FROM sitemap WHERE isNavItem = 1";
-    $nav_query = $db->query($nav_sql);
-    $nav_rs=$nav_query->fetch_array(MYSQLI_ASSOC);
+  public function DisplayHeader()
+  {
+    $query = "SELECT * FROM sitemap WHERE isNavItem = ?";
+    $paramType = "i";
+    $paramArray = [1];
+    $stmt = $this->ds->select($query, $paramType, $paramArray);
+    $nav_rs= $stmt;
     ?>
     
     <header>
@@ -94,9 +113,9 @@ class Page {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <?
-              do{
-                $this->DisplayButton($nav_rs['pageName'], $nav_rs['pageID'], $nav_rs['url']);
-              } while($nav_rs=$nav_query->fetch_array(MYSQLI_ASSOC));
+              foreach ( $nav_rs as $key => $nav ){
+                $this->DisplayButton($nav_rs[$key]['pageName'], $nav_rs[$key]['pageID'], $nav_rs[$key]['url']);
+              }
             ?>
           </ul>
         </div>
@@ -106,14 +125,19 @@ class Page {
     <?
   }
 
-  private function DisplayButton($name, $pageID, $url){
-    if (empty($_SESSION['LoggedIn'])){
+  private function DisplayButton($name, $pageID, $url)
+  {
+    if (empty($_SESSION['LoggedIn']))
+    {
       $loggedIn=false;
-    }else {
+    }
+    else 
+    {
       $loggedIn = $_SESSION['LoggedIn'];
     }
 
-    if ( $pageID == 1 || $pageID == 2 || $pageID == 3 ){
+    if ( $pageID == 1 || $pageID == 2 || $pageID == 3 )
+    {
       ?>
       <li class="nav-item">
         <a class="nav-link" href="./<?=$url?>.php" title="<?=$name ?>"><?=$name?></a>
@@ -121,10 +145,13 @@ class Page {
     <?
     }
 
-    if ($pageID == 4){
+    if ($pageID == 4)
+    {
       if ($loggedIn){
         return;
-      }else{
+      }
+      else
+      {
         ?>
         <li class="nav-item">
           <a class="nav-link" href="./<?=$url?>.php" title="<?=$name ?>"><?=$name?></a>
@@ -133,12 +160,15 @@ class Page {
       }
     }
 
-    if ( $pageID == 5){
+    if ( $pageID == 5)
+    {
       return;
     }
 
-    if ( $pageID == 6 ){
-      if ($loggedIn){
+    if ( $pageID == 6 )
+    {
+      if ($loggedIn)
+      {
         ?>
           <li class="nav-item">
             <a class="nav-link" href="./<?=$url?>.php" title="<?=$name ?>"><?=$name?></a>
@@ -147,97 +177,38 @@ class Page {
             <a class="nav-link" href="./logout.php" title="Log Out">Log Out</a>
           </li>
         <?
-      }else{return;}
+      }
+      else{return;}
     }
   }
 
-  public function SetPageInfo($pageID){
-
-    $db = new mysqli('localhost', 'glazpmck_ics370', 'BZgGYMd4BSqTiNb', "glazpmck_ics370");
+  public function SetPageInfo($pageID)
+  {
     $query = "SELECT pageTitle, bgImg, bgImgAlt FROM sitemap where pageID = ?";
-    $stmt = $db->prepare($query);
-    $stmt->bind_param('i', $pageID);
-    $stmt->execute();
-    $stmt->store_result();
-    $stmt->bind_result($PageTitle, $BGImg, $BGImgAlt);
+    $paramType = "i";
+    $paramArray = [$pageID];
+    $stmt = $this->ds->select($query, $paramType, $paramArray);
 
-    switch ($pageID){
-      case 1:
-        while($stmt->fetch()){
-          ?>
-          
-            <section class='page-title index'>
-              <h2><?=$PageTitle?></h2>
-            </section>
+  
 
-            <div class="content-panel">
-              <div class="panel-img">
-              <!-- just pic for reference  -->
-                <img src="images/<?=$BGImg?>" alt="<?=$BGImgAlt?>" />
-              </div>
-          <?
-        }
-        break;
-      
-      case ($pageID == 2 || $pageID == 3 ):
-        while($stmt->fetch()){
-          ?>
-            <div class="account-img">
-              <img src="img/<?=$BGImg?>" alt="<?=$BGImgAlt?>" />
-            </div>
-        
-            <section class="page-title">
-              <h2><?=$PageTitle?></h2>
-            </section>
-          <?
-        }
-      break;
+    $PageTitle = $stmt[0]['pageTitle'];
+    $BGImg = $stmt[0]['bgImg'];
+    $BGImgAlt = $stmt[0]['bgImgAlt'];
+    ?>      
+      <section class='page-title index'>
+        <h2><?=$PageTitle?></h2>
+      </section>
 
-      case ($pageID == 4 || $pageID == 5):
-        while($stmt->fetch()){
-          ?>
-            <section class="page-title">
-              <h2><?=$PageTitle?></h2>
-            </section>
-
-            <div class="content-panel">
-              <div class="panel-img">
-              <!-- just pic for reference  -->
-                <img src="img/<?=$BGImg?>" alt="<?=$BGImgAlt?>" />
-              </div>
-          <?
-        }
-      break;
-
-      case 6:
-        while ($stmt -> fetch()){
-          ?>
-            <div class="account-img">
-              <img src="img/<?=$BGImg?>" alt="<?=$BGImgAlt?>" />
-            </div>
-
-            <section class='page-title'>
-              <h2> Welcome <?=$_SESSION['user']?></h2>
-              <? 
-                if (isset($_SESSION["successMessage"])){
-                  ?>
-                  <div class="alert alert-success" role="alert"><?= $_SESSION["successMessage"];?></div>
-                  <? unset($_SESSION["successMessage"]);
-                }
-                if (isset($_SESSION["errorMessage"])){
-                  ?>
-                  <div class="alert alert-warning" role="alert"><?= $_SESSION["errorMessage"];?></div>
-                  <? unset($_SESSION["errorMessage"]);
-                }
-              ?>
-            </section>
-          <?
-        }
-      break;
-    }
+      <div class="content-panel">
+        <div class="panel-img">
+          <!-- just pic for reference  -->
+          <img src="images/<?=$BGImg?>" alt="<?=$BGImgAlt?>" />
+        </div>
+      <?
   }
 
-  public function DisplayFooter(){
+  public function DisplayFooter()
+  {
     if (isset($credits)){
       echo "<footer>";
       echo $credits;

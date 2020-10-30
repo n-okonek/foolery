@@ -1,4 +1,8 @@
 <?
+namespace Foolery;
+
+use \Foolery\Member;
+
 session_start();
 if (!(empty($_POST["userName"]) && empty($_POST["pswd"]))) {
     
@@ -21,6 +25,4 @@ if (!(empty($_POST["userName"]) && empty($_POST["pswd"]))) {
 }else{
     $_SESSION["errorMessage"] = "Credentials Missing";
     header("Location: ../login.php", true, 403);
-} 
-
-?>
+}
