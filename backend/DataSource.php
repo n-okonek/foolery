@@ -30,6 +30,7 @@ class DataSource
   //Get DB Select Query Results
   public function select($query, $paramType, $paramArray)
   {
+    $stmt = $this->conn->stmt_init();
     $stmt = $this->conn->prepare($query);
 
     if (!empty($paramType) && !empty($paramArray)) {
