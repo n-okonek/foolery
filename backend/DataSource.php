@@ -28,7 +28,7 @@ class DataSource
   }
 
   //Get DB Select Query Results
-  public function select($query, $paramType="", $paramArray=array())
+  public function select($query, $paramType, $paramArray)
   {
     $stmt = $this->conn->prepare($query);
 
