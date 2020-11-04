@@ -25,6 +25,18 @@
       "username": "glazpmck_ics370",
       "password": "BZgGYMd4BSqTiNb",
       "name": "ics370 Prod"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "askForPassword": true,
+      "driver": "MariaDB",
+      "connectString": "ssh -f glazpmck@glazedproductions.com -p21098 -L 3306:127.0.0.1:3306 -N",
+      "name": "Prod DB"
     }
   ],
   "compile-hero.disable-compile-files-on-did-save-code": true
