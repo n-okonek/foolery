@@ -3,7 +3,6 @@ namespace Foolery;
 use \Foolery\Datasource;
 
 class Page {
-  public $content;
   public $title;
 
   function __construct()
@@ -204,6 +203,7 @@ class Page {
           <!-- just pic for reference  -->
           <img src="images/<?=$BGImg?>" alt="<?=$BGImgAlt?>" />
         </div>
+      </div>
       <?
   }
 

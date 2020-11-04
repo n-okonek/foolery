@@ -4,17 +4,19 @@ use Foolery\Page;
 
 require_once 'includes/page.php';
 
-class Homepage extends Page{
-  public function Display($pageID){
-    $this -> DisplayHead(); // includes all meta information including site title and page names
-    $this -> DisplayBody();
-    $this -> DisplayHeader(); //includes display menu
-    $this -> SetPageInfo($pageID);
-    echo $this->content;
-    $this -> DisplayFooter();
-  }
+function LoadContent(){
+  ?>
+  <form class="form-inline product-search">
+    <div class="form-group">
+      <label class="sr-only" for="search-product">Search</label>
+      <input type="text" class="form-control" id="search-product" placeholder="What are looking for?" />
+    </div>
+    <button type="submit" class="btn btn-primary">Find it now!</button>
+  </form>
+  <?
 }
 
-$homepage = new Homepage();
+$homepage = new Page();
 $homepage->content = "";
 $homepage->Display(1);
+LoadContent();
