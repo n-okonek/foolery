@@ -45,10 +45,24 @@ $img: "../images";
   align-items: center;
   width: 100%;
   flex-direction: column;
-  
 }
 
 #login {
+  width: 50%;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.reg-container{
+  position: absolute;
+  top: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-direction: column;
+}
+
+#regform{
   width: 50%;
   background: rgba(255, 255, 255, 0.8);
 }
