@@ -20,6 +20,7 @@ class LoginPage extends Page{
 
   private function DisplayLogin(){
     ?>  <!-- discuss log-in processing for php --->
+    <div class="login-container">
       <form id='login' action='./includes/auth.php' method='post' onSubmit='return validate();'>
         <?
           if (isset($_SESSION["errorMessage"])){
@@ -33,22 +34,21 @@ class LoginPage extends Page{
             <? unset($_SESSION["successMessage"]);
           }
         ?>
-        <div class='container' id='logInBoxes' >
-          <label for='userName'><b>Email Address:</b></label><span id='user_info' class='error-info'></span>
-          <input class='form-control' type='text' placeholder='Enter Email Address' name='userName' id='userName' required></br>
-    
-          <label for='pswd'><b>Password:</b></label><span id='password_info' class='error-info'></span>
-          <input class='form-control' type='password' placeholder='Enter Password' name='pswd' id='pswd' required></br>
-          
-        </div>
-    
-        <div class='container' id='submit'>
-          <button type='submit' name="login" value="Login">Log-in</button>
+          <div class="form-group">
+            <label for='userName'><b>Email Address:</b></label><span id='user_info' class='error-info'></span>
+            <input class='form-control' type='text' placeholder='Enter Email Address' name='userName' id='userName' required></br>
+          </div>
+          <div class="form-group">
+            <label for='pswd'><b>Password:</b></label><span id='password_info' class='error-info'></span>
+            <input class='form-control' type='password' placeholder='Enter Password' name='pswd' id='pswd' required></br>
+          </div>
+        <div class='form-group'>
+          <button class="btn btn-primary" type='submit' name="login" value="Login">Log-in</button>
           <span class='pswd'><a href="#reset" onclick="showForm('pw-reset')">Forget your password?</span> | <span class='createAccount'><a href='./register.php'>Create an account</a></span>
         </div>
       </form>
     </div>
-  <?
+    <?
   }
 
   private function DisplayPwReset(){
