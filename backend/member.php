@@ -38,6 +38,7 @@ class Member
             $_SESSION['MemberName'] = $memberResult[0]['FName']." ".$memberResult[0]['LName'];
             $_SESSION['MemberSince'] = $memberResult[0]['AccountCreated'];
             $_SESSION['Email'] = $memberResult[0]['Email'];
+            $_SESSION['Address'] = $memberResult[0]['address'].", ".$memberResult[0]['city'].", ".$memberResult[0]['state'];
             $_SESSION['DOB'] = $memberResult[0]['DOB'];
             $_SESSION['isRetailer'] = false;
             return true;
@@ -62,13 +63,12 @@ class Member
         }
     }
 
-    public function createUser($fname, $lname, $email, $pw, $dob)
+    public function createUser($fname, $lname, $email, $pw, $dob, $address, $city, $state)
     {
-
         $passwordHash = md5($pw);
-        $query = "INSERT INTO users (Email, FName, LName, Psword, DOB) VALUES (?, ?, ?, ?, ?)";
-        $paramType = "sssss";
-        $paramArray = [$email, $fname, $lname, $passwordHash, $dob];
+        $query = "INSERT INTO users (Email, FName, LName, Psword, address, city, state, DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $paramType = "ssssssss";
+        $paramArray = [$email, $fname, $lname, $passwordHash, $address, $city, $state, $dob];
         $stmt = $this->ds->insert($query, $paramType, $paramArray);
                 
         if($stmt > 0)
