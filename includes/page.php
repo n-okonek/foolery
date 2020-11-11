@@ -63,8 +63,8 @@ class Page {
     ?>
       <!-- import bootstrap CSS library -->
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-      <!-- import font-awesome styles for stars -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">        
+      <!-- import font-awesome styles -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />        
       <!-- import local styles-->
       <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <?
@@ -195,7 +195,11 @@ class Page {
     $BGImgAlt = $stmt[0]['bgImgAlt'];
     ?>      
       <section class='page-title index'>
-        <h2><?=$PageTitle?></h2>
+      <?if (isset($_SESSION["user"])){?>
+        <h2><?=$PageTitle." ".$_SESSION["user"]?></h2>
+      <?}else{?>
+      <h2><?=$PageTitle?></h2>
+    <?}?>
       </section>
 
       <div class="content-panel">

@@ -51,7 +51,7 @@ class Member
 
             if(!empty($memberResult))
             {
-                $_SESSION['userID'] = $memberResult[0]['id'];
+                $_SESSION['id'] = $memberResult[0]['id'];
                 $_SESSION['user'] = $memberResult[0]['FName'];
                 $_SESSION['MemberName'] = $memberResult[0]['FName']." ".$memberResult[0]['LName'];
                 $_SESSION['Company'] = $memberResult[0]['Company'];
@@ -79,20 +79,14 @@ class Member
         }
     }
 
-    public function updateUser($key, $value)
+    public function updateUser($table, $key, $value)
     {
-        $query = "UPDATE users SET $key = ? WHERE id = ?";
+        $query = "UPDATE $table SET $key = ? WHERE id = ?";
         $paramType = "si";
-        $paramArray = [$value, $_SESSION['userID']];
+        $paramArray = [$value, $_SESSION['id']];
         $stmt = $this->ds->execute($query, $paramType, $paramArray);
                 
-        if ($stmt > 0)
-        {
-            return 1;
-        }else 
-        {
-            return 0;
-        }
+        return 1;
     }
 
     public function PwResetReq($email)
@@ -111,7 +105,7 @@ class Member
         $paramType = "ssss";
         $paramArray = [$email, $selector, $hashedToken, $expires];
         $hashedToken = bin2hex($token);
-        $stmt = $this->ds->execute($query, $paramType, $paramArray);
+        $stmt = $this->ds->insert($query, $paramType, $paramArray);
         
         $email_reset = $this->SendResetMail($email, $selector, $token);
         if ($email_reset)
@@ -200,7 +194,7 @@ class Member
                     $query = "DELETE FROM pwdreset WHERE pwdResetEmail = ?;";
                     $paramType = "s";
                     $paramArray = [$tokenEmail];
-                    $stmt = $this->db->execute($query, $paramType, $paramArray);
+                    $stmt = $this->ds->execute($query, $paramType, $paramArray);
                     $stmt->bind_param("s", $tokenEmail);
                                     
                     return true;

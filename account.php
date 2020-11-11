@@ -22,8 +22,8 @@ else{
             <p><?php echo "Email: ".$_SESSION['Email'] ?></p>
             <p><?php echo "Address: ".$_SESSION['Address'] ?></p>
             <p><?php echo "Birthday: ".$_SESSION['DOB'] ?></p>
+            <button class="btn btn-primary" type="submit" onclick="showForm('update-user');">Update Profile</button>
         </div>
-        <button class="btn btn-primary" type="submit" onclick="showForm('update-user');">Update Profile</button>
       </div>
     <?
   }

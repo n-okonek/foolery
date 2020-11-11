@@ -1,8 +1,4 @@
-.pw-reset {
-  display: none;
-}
-
-.update-user {
+.pw-reset, .update-user, .add-coupon, .edit-coupon {
   display: none;
 }
 
@@ -118,7 +114,7 @@
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-#update-user {
+#update-user, #add-coupon, #edit-coupon {
   background: #fff;
   width: 65%;
   position: relative;
@@ -126,5 +122,49 @@
   margin: 0px auto;
   padding: 20px;
   border-radius: 5px;
+}
+
+.active-coupons {
+  position: relative;
+  top: -280px;
+  margin: 0 auto;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 10% 10% 30% 40%;
+      grid-template-columns: 10% 10% 30% 40%;
+  -webkit-column-gap: 15px;
+          column-gap: 15px;
+  row-gap: 15px;
+  max-width: 550px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 5px #696969;
+          box-shadow: 5px 5px 5px #696969;
+  padding: 20px;
+}
+
+.coupon-header {
+  font-weight: bold;
+}
+
+.c-code {
+  -ms-grid-column: 3;
+  grid-column: 3;
+}
+
+.coupon-message {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-column: 1 / span 4;
+}
+
+.edit-c, .delete-c {
+  max-height: 38px;
+}
+
+.add-c {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
+  grid-column: 1 / span 4;
 }
 /*# sourceMappingURL=styles.css.map */
