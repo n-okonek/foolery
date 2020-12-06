@@ -40,6 +40,7 @@ class Member
             $_SESSION['Email'] = $memberResult[0]['Email'];
             $_SESSION['Address'] = $memberResult[0]['address'].", ".$memberResult[0]['city'].", ".$memberResult[0]['state'];
             $_SESSION['DOB'] = $memberResult[0]['DOB'];
+            $_SESSION['isMember'] = $memberResult[0]['isMember'];
             $_SESSION['isRetailer'] = false;
             return true;
         }else
@@ -66,9 +67,9 @@ class Member
     public function createUser($fname, $lname, $email, $pw, $dob, $address, $city, $state)
     {
         $passwordHash = md5($pw);
-        $query = "INSERT INTO users (Email, FName, LName, Psword, address, city, state, DOB) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        $paramType = "ssssssss";
-        $paramArray = [$email, $fname, $lname, $passwordHash, $address, $city, $state, $dob];
+        $query = "INSERT INTO users (Email, FName, LName, Psword, address, city, state, DOB, isMember) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $paramType = "ssssssssi";
+        $paramArray = [$email, $fname, $lname, $passwordHash, $address, $city, $state, $dob, 0];
         $stmt = $this->ds->insert($query, $paramType, $paramArray);
                 
         if($stmt > 0)
@@ -85,7 +86,15 @@ class Member
         $paramType = "si";
         $paramArray = [$value, $_SESSION['id']];
         $stmt = $this->ds->execute($query, $paramType, $paramArray);
-                
+        return 1;
+    }
+
+    public function upgradeUser($id){
+        $query = "UPDATE users SET isMember = true WHERE id = ?";
+        $paramType = "i";
+        $paramArray = [$id];
+        $stmt = $this->ds->execute($query, $paramType, $paramArray);
+
         return 1;
     }
 
@@ -202,4 +211,6 @@ class Member
             }
         }
     }
+
+
 }

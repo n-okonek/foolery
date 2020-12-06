@@ -1,17 +1,17 @@
 <?
 namespace Foolery;
-use Foolery\Page;
+use \Foolery\Page;
 
 require_once 'includes/page.php';
 
 function LoadContent(){
   ?>
-  <form class="form-inline product-search">
+  <form id="product-finder" method="post" action="backend/api.php" class="form-inline product-search">
     <div class="form-group">
-      <label class="sr-only" for="search-product">Search</label>
-      <input type="text" class="form-control" id="search-product" placeholder="What are looking for?" />
+      <label class="sr-only" for="product">Search</label>
+      <input type="text" class="form-control" id="product" name="product" placeholder="What are you looking for?" />
     </div>
-    <button type="submit" class="btn btn-primary">Find it now!</button>
+    <button id="search" type="submit" class="btn btn-primary">Find it now!</button>
   </form>
   <?
 }

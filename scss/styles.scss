@@ -1,6 +1,6 @@
 $img: "../images";
 
-.pw-reset, .update-user, .add-coupon, .edit-coupon {
+.pw-reset, .update-user, .add-coupon, .edit-coupon, .upgrade-user {
   display: none;
 }
 
@@ -83,7 +83,7 @@ $img: "../images";
   background-color: rgba(0 , 0, 0, 0.75)
 }
 
-#update-user, #add-coupon, #edit-coupon{
+#update-user, #add-coupon, #edit-coupon, #upgrade-user{
   background: #fff;
   width: 65%;
   position: relative;
@@ -126,4 +126,17 @@ $img: "../images";
 
 .add-c{
   grid-column: 1 / span 4;
+}
+
+.right-panel{
+  position: absolute;
+  right: 5%;
+}
+
+.centered{
+  text-align: center;
+}
+
+#cc-not-valid, #exp-not-valid, #cvv-not-valid{
+  display: none;
 }
