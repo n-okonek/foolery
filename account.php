@@ -1,6 +1,9 @@
 <?
 namespace Foolery;
-use Foolery\Page;
+use \Foolery\Page;
+use \Foolery\Member;
+
+require_once "backend/member.php";
 require_once "includes/page.php";
 
 session_start();
@@ -38,13 +41,19 @@ else{
   }
 
   function DisplayCoupon(){
+    $coupon = new Member();
+    $rs = $coupon->RetrieveCoupon();
+    $display = $rs[rand(0,count($rs)-1)];
     ?>
-      <h3>Available Coupon</h3>
+      <h3 class="centered">A Coupon from <br /><?=$display["company"]?></h3>
       <div class="barcode-container">
-      <img src="images/barcode.png">
-      <div class="dig1"><?=rand(0,9)?></div>
-      <div class="dig6-1"><?=rand(0,999999)?></div>
-      <div class="dig6-2"><?=rand(0,999999)?></div>
+        <img src="images/barcode.png">
+        <div class="dig1"><?=rand(0,9)?></div>
+        <div class="dig6-1"><?=sprintf('%06d',rand(0,999999))?></div>
+        <div class="dig6-2"><?=sprintf('%06d',rand(0,999999))?></div>
+      </div>
+      <div class="centered coupon-desc"><?=$display["couponDesc"]?></div>
+      <div class="centered">Show this coupon to your cashier at checkout.</div>
     <?
   }
 

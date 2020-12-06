@@ -212,5 +212,12 @@ class Member
         }
     }
 
+    public function RetrieveCoupon(){
+        $query = "SELECT * FROM coupons";
+        $paramType = "";
+        $paramArray = [];
+        $couponRS = $this->ds->select($query, $paramType, $paramArray);
 
+        return $couponRS;
+    }
 }

@@ -140,3 +140,31 @@ $img: "../images";
 #cc-not-valid, #exp-not-valid, #cvv-not-valid{
   display: none;
 }
+
+.dig1 {
+  position: absolute;
+  background-color: #fff;
+  padding: 10px;
+  bottom: 30px;
+  left: 0px;
+}
+
+.dig6-1{
+  position: absolute;
+  background-color: #fff;
+  padding: 10px;
+  bottom: 30px;
+  left: 40%;
+}
+
+.dig6-2{
+  position: absolute;
+  background-color: #fff;
+  padding: 10px;
+  bottom: 30px;
+  right: 0;
+}
+
+.coupon-desc{
+  position: relative;
+}

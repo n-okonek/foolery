@@ -18,7 +18,6 @@ if (!(empty($_POST["userName"]) && empty($_POST["pswd"]))) {
 
     if ($isLoggedIn) {
         $_SESSION["LoggedIn"] = true;
-        console.log($_SESSION['isRetailer']);
         if ($isRetailer){
             header("location: ../retailer.php");
         }else{
