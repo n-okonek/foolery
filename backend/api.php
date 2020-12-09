@@ -1,5 +1,6 @@
 <?
 namespace Foolery;
+session_start();
 
 if (isset($_POST['product'])){
   GetProduct();
@@ -22,15 +23,15 @@ function GetProduct(){
   curl_setopt($ch, CURLOPT_URL, $endpoint.'?s='.$product);
   $response = curl_exec($ch);
   $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  if ($httpcode != 200)
-    echo "error status $httpcode...\n";
-  else
+  if ($httpcode != 200) {
+    echo "Error status $httpcode...\n The hamsters fell off the wheel and this is what's wrong with free APIs...";
+  }
+  else{
+    $jsonObj = json_decode($response, true);
 
-    $jsonobj = json_decode($response);
+    $_SESSION['search_results'] = $jsonObj['items'];
     
-    var_dump($jsonobj);
-
-  // $header('index.php?s='.$product);
+    header("Location: ../index.php?s=$product");
   
   /* if you need to run more queries, do them in the same connection.
   * use rawurlencode() instead of URLEncode(), if you set search string
@@ -40,4 +41,5 @@ function GetProduct(){
   sleep(6);
   // proceed with other queries
   curl_close($ch);
+  }
 }
