@@ -23,7 +23,6 @@ function GetProduct(){
   curl_setopt($ch, CURLOPT_URL, $endpoint.'?s='.$product);
   $response = curl_exec($ch);
   $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  $errorReason = curl_getinfo($ch, CURLINFO_HTTP)
   if ($httpcode != 200) {
     echo "Error status $httpcode...\n The hamsters fell off the wheel and this is what's wrong with free APIs...";
   }
